@@ -10,7 +10,7 @@ MyStorage.sync = {
         if (saveType == 0) return keys;
         keys.push('nyukyos','missions','createships');
         if (saveType < 2) return keys;
-        keys.push('quests','achievements');
+        keys.push('quests','achievements','recipememo');
         if (saveType < 3) return keys;
         keys.push('config','inputTracking');
         return keys;
@@ -139,6 +139,15 @@ MyStorage.prototype.tearDown = function(){
         'hide-adressbar-in-safemode'         : false,
         'enable-sync'                        : false,// Obsolete!!
         'sync-save-type'                     : 0,
+        'auth-twitter'                       : false,
+        'twitter-screen-name'                : "",
+        'tweet-hashtag'                      : "",
+        'enable-twitter-remind'              : false,// Obsolete!!
+        'enable-twitter-remind-mission'      : false,
+        'enable-twitter-remind-nyukyo'       : false,
+        'enable-twitter-remind-createship'   : false,
+        'enable-twitter-remind-confirm'      : false,
+        'enable-twitter-remind-mission'      : false,
         'sort-by-finishtime'                 : false
     },
 

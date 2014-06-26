@@ -1,16 +1,15 @@
 var Constants = {
     release : {
-        version: "v1.0.7",
-        link: 'https://github.com/otiai10/kanColleWidget/pull/382',
-        announceVersion : 50,
+        version: "v1.3.8.4",
+        link: 'https://github.com/otiai10/kanColleWidget/pull/411',
+        announceVersion : 70,
         announcements   : [
-            '設定済みの通知文字列を初期表示する',
-            'うっかり消しちゃってた遠征ID33,34の追加',
-            '伊８やっぱり来ません'
+            'Windowsの画面サイズ修正',
+            '<a href="https://github.com/otiai10/kanColleWidget/wiki/%E9%9A%9C%E5%AE%B3%E3%83%BB%E3%83%A1%E3%83%B3%E3%83%86%E3%83%8A%E3%83%B3%E3%82%B9%E6%83%85%E5%A0%B1" class="light">障害・メンテナンス情報</a>の更新'
         ]
     },
     area: ["鎮守府海域","南西諸島海域","北方海域","西方海域","南方海域"],
-    shiptype:{dd:"駆逐",lc:"軽巡",hc:"重巡",bb:"戦艦",ac:"空母",ab:"航戦",sc:"水母"},
+    shiptype:{dd:"駆逐",lc:"軽巡",hc:"重巡",bb:"戦艦",ac:"空母",ab:"航戦",sc:"水母",sm:"潜水",st:"潜母"},
     mission : {
         /**
          * reward: [ 経験値, 燃料, 弾薬, 鋼材, ボーキ]
@@ -273,6 +272,28 @@ var Constants = {
             reward: [100, 420, 0, 200, 0],
             require:[65, 6, {lc:1, dd:5}],
             area: 4
+        },
+        "39": {
+            minute:1800,
+            title: '遠洋潜水艦作戦',
+            reward: [130, 300, 0, 0, 0],
+            require:[3, 5, {st:1}],
+            area: 4
+        },
+        // 索敵機、発艦始め！
+        "117": {
+            minute:15,
+            title: '前衛支援任務',
+            reward: [0,0,0,0,0],
+            require:[null, 2, {dd:2}],
+            area: 5
+        },
+        "118": {
+            minute:30,
+            title: '艦隊決戦支援任務',
+            reward: [0,0,0,0,0],
+            require:[null, 2, {dd:2}],
+            area: 5
         }
     },
     widget : {
@@ -427,7 +448,10 @@ var Constants = {
             ]
         }
     },
-
+    tweetServer : {
+        url: 'http://oti10.com:16000',
+        token: '8b5f0870-cd6c-11e3-9c1a-0800200c9a66'
+    },
     assuranceStringMap : {
         // Quartet pattern
         // Triplet pattern
@@ -472,6 +496,8 @@ var Constants = {
                     {url:'src/img/loader/024.jpg',title:'彗星'},
                     {url:'src/img/loader/025.jpg',title:'零式水上偵察機'},
                     {url:'src/img/loader/026.jpg',title:'瑞雲'},
+                    {url:'src/img/loader/027.jpg',title:'13号対空電探'},
+                    {url:'src/img/loader/028.jpg',title:'22号対水上電探'},
                     {url:'src/img/loader/030.jpg',title:'21号対空電探'},
                     //-----------031~040
                     {url:'src/img/loader/032.jpg',title:'14号対空電探'},
@@ -484,17 +510,34 @@ var Constants = {
                     {url:'src/img/loader/040.jpg',title:'25mm三連装機銃'},
                     //-----------041~050
                     {url:'src/img/loader/041.jpg',title:'甲標的 甲'},
+                    {url:'src/img/loader/042.jpg',title:'応急修理要員'},
+                    {url:'src/img/loader/043.jpg',title:'応急修理女神'},
                     {url:'src/img/loader/044.jpg',title:'九四式爆雷投射機'},
+                    {url:'src/img/loader/045.jpg',title:'三式爆雷投射機'},
                     {url:'src/img/loader/046.jpg',title:'九三式水中聴音機'},
                     {url:'src/img/loader/047.jpg',title:'三式水中探信儀'},
+                    {url:'src/img/loader/048.jpg',title:'12.7cm単装高角砲'},
+                    {url:'src/img/loader/050.jpg',title:'20.3cm(3号)連装砲'},
                     //-----------051~060
                     {url:'src/img/loader/051.jpg',title:'12cm30連装噴進砲'},
+                    {url:'src/img/loader/053.jpg',title:'烈風改'},
                     {url:'src/img/loader/054.jpg',title:'彩雲'},
                     {url:'src/img/loader/055.jpg',title:'紫電改二'},
+                    {url:'src/img/loader/057.jpg',title:'彗星一二型甲'},
                     {url:'src/img/loader/058.jpg',title:'61cm五連装(酸素)魚雷'},
-                    //-----------051~060
+                    {url:'src/img/loader/059.jpg',title:'零式水上観測機'},
+                    //-----------061~070
+                    {url:'src/img/loader/062.jpg',title:'試製晴嵐'},
+                    {url:'src/img/loader/063.jpg',title:'12.7cm連装砲B型改二'},
+                    {url:'src/img/loader/064.jpg',title:'Ju87C改'},
                     {url:'src/img/loader/065.jpg',title:'15.2cm連装砲'},
-                    {url:'src/img/loader/066.jpg',title:'8cm高角砲'}
+                    {url:'src/img/loader/066.jpg',title:'8cm高角砲'},
+                    //-----------071~080
+                    {url:'src/img/loader/075.jpg',title:'ドラム缶'},
+                    {url:'src/img/loader/078.jpg',title:'12.7cm単装砲'},
+                    //-----------081~090
+                    {url:'src/img/loader/086.jpg',title:'艦艇修理施設'},
+                    {url:'src/img/loader/087.jpg',title:'新型高温高圧缶'}
                 ]
             }
         }

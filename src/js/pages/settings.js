@@ -37,6 +37,9 @@ $(function(){
     );
 
     $("#others").append(
+        (new widgetPages.AuthTwitterView()).render(),
+        (new widgetPages.TweetHashtagView()).render(),
+        (new widgetPages.EnableTwitterRemindView()).render(),
         (new widgetPages.SyncSaveTypeView()).render(),
         (new widgetPages.ClockmodeStyleView()).render(),
         (new widgetPages.ShowShipsStatusView()).render(),
@@ -45,10 +48,29 @@ $(function(){
         (new widgetPages.UseWhiteModeAsDefaultView()).render(),
         (new widgetPages.HideAdressbarInSafemodeView()).render()
     );
+
+    $('input#auth-twitter').on('click', function(ev) {
+        if (ev.currentTarget.checked) {
+            chrome.runtime.sendMessage(null, {
+                purpose: 'authTwitter'
+            });
+        } else {
+            chrome.runtime.sendMessage(null, {
+                purpose: 'authTwitter',
+                clear: true
+            });
+            var message = "ツイッター連携を止める場合は、";
+            message += "ツイッターの設定からアプリケーション連携も取り消すことをオススメします。\n";
+            message += "twitter.comの設定画面へ移動しますか？";
+            if (window.confirm(message)) {
+                location.href = "https://twitter.com/settings/applications";
+            }
+        }
+    });
 });
 function renderAnnounce(){
     // 既読バージョンがアナウンスバージョン以上なら何もしない
-    if (Constants.release.announceVersion <= Config.get("announce-already-read")) return;
+    if (! Util.haveNewUpdate()) return;
 
     $("#announce").append(
         (new widgetPages.AnnounceView(Config)).render()

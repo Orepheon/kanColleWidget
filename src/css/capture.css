@@ -26,3 +26,39 @@ button.plain {
     border: none;
     background: none;
 }
+img.file-action {
+    width: 24px;
+}
+a.tweeted-permalink {
+    margin-top: 5px;
+    font-size: small;
+    text-decoration: none;
+    font-weight: bold;
+    color: #33ccff;
+}
+.tweeted-permalink:hover {
+    color: #49afcd;
+}
+@-webkit-keyframes loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+.loader {
+    -webkit-animation-name: loading;
+    -webkit-animation-duration: 0.8s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    border-left: thin solid #aaa;
+    border-top: thin solid #aaa;
+    border-right: thin solid #aaa;
+    border-bottom: thin solid #f0f0f0;
+    border-radius: 20px;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    padding: 0;
+}

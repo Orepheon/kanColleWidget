@@ -3,6 +3,13 @@
  * ここはなるべくイベントのバインドしか書かない
  * 注意: トップレベル以外で`chrome`文言を書かない
  */
+var oauth = chrome.extension.getBackgroundPage()['oauth'] || ChromeExOAuth.initBackgroundPage({
+    'request_url': "https://api.twitter.com/oauth/request_token",
+    'authorize_url': "https://api.twitter.com/oauth/authorize",
+    'access_url': "https://api.twitter.com/oauth/access_token",
+    'consumer_key': KanColleWidget.TwitterConfig.consumer_key,
+    'consumer_secret': KanColleWidget.TwitterConfig.consumer_secret
+});
 var KanColleWidget = KanColleWidget || {};
 (function(){
     "use strict";
@@ -101,6 +108,27 @@ var KanColleWidget = KanColleWidget || {};
                     KanColleWidget.Stash.twitterShareWindowIds = [];
                 },1000);
             }
+        }
+
+        if(message.purpose == 'authTwitter'){
+            // TODO: アクションのほうがいいかな
+            var oauth = oauth || chrome.extension.getBackgroundPage()['oauth'];
+            oauth.clearTokens();
+            if(message.clear) return;
+            oauth.authorize(function(token, secret) {
+                // TODO: アクションにしたほうがいい雰囲気出てきたww
+                var s = new KanColleWidget.ServiceTwitter();
+                var p = s.getProfile();
+                p.done(function(user_profile){
+                    // console.log(user_profile);
+                    Config.set("twitter-screen-name", user_profile['screen_name']);
+                })
+            });
+        }
+
+        if (message.purpose == 'resizeWindowAtWhite') {
+            Util.resizeWindowAtWhite(sender.tab);
+            return;
         }
 
         if( message.winId == undefined ) return;

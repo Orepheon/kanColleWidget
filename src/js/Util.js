@@ -465,9 +465,6 @@ var Util = Util || {};
     };
 
     Util.getWidgetTitle = function(){
-        if (Util.isSpecialTerm()) {//お正月対応
-            return '「' + Util.arrayRand(Constants.widget.title.special) + '」';
-        }
         var index = Math.random();
         var _i = 0;
         if(index < Constants.widget.title.rate){
@@ -533,10 +530,9 @@ var Util = Util || {};
     };
 
     Util.isSpecialTerm = function() {
-        var start = new Date(2014,  0,  1, 0, 0).getTime();
-        var end   = new Date(2014,  0,  2, 0, 0).getTime();
-        var now   = Date.now();
-        if (start < now && now < end) return true;
+        // 4月1日対応
+        var d = new Date();
+        if (d.getMonth() == 3 && d.getDate() == 1) return true;
         return false;
     };
 
@@ -766,6 +762,41 @@ var Util = Util || {};
             top: pos.top,
             type: type
         },function(win){
+        });
+    };
+
+    Util.haveNewUpdate = function(){
+        // エイプリルフール対応
+        if (Util.isSpecialTerm()) return true;
+        return Constants.release.announceVersion > Config.get("announce-already-read");
+    };
+    Util.getTweetServerURL = function(){
+        if (localStorage.getItem('isDebug') == 'true') {
+            return 'http://localhost:16000';
+        }
+        return Constants.tweetServer.url;
+    };
+
+    Util.resizeWindowAtWhite = function(tab) {
+
+        var targetSize = {
+            width: 800,
+            height: 480
+        };
+
+        var diffWidth = targetSize.width - tab.width;
+        var diffHeight = targetSize.height - tab.height;
+
+        chrome.windows.get(tab.windowId, function (win) {
+
+            var updateInfo = {
+                width: win.width + diffWidth,
+                height: win.height + diffHeight
+            };
+
+            chrome.windows.update(win.id,updateInfo,function(_win) {
+                // Callback code
+            });
         });
     };
 })();
